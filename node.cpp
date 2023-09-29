@@ -5,14 +5,31 @@
 #include "node.hpp"
 #include <iostream>
 
-Node::Node(): data('\0'), ptrNext(nullptr) {
-}
-
-Node::Node(char val, Node* next): data(val), ptrNext(next) {
+position ::position(): x(0), y(0) {
 
 }
 
-void Node::setData(char _data){
+position::position(int x, int y) {
+	this->x = x;
+	this->y = y;
+}
+
+int position::getX() {
+	return this->x;
+}
+
+int position::getY() {
+	return this->y;
+}
+
+Node::Node(): data(position()), ptrNext(nullptr) {
+}
+
+Node::Node(position pos, Node* next): data(pos), ptrNext(next) {
+
+}
+
+void Node::setData(position _data){
 	data = _data;
 }
 
@@ -20,7 +37,7 @@ void Node::setNext(Node* next){
 	ptrNext = next;
 }
 
-char Node::getData(){
+position Node::getData(){
 	return data;
 }
 Node* Node::getNext(){
@@ -28,7 +45,7 @@ Node* Node::getNext(){
 }
 
 void Node::print(){
-	std::cout << data ;
+	std::cout << data.getX() << ',' << data.getY();
 }
 
 Node::~Node() {

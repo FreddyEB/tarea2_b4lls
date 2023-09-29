@@ -25,5 +25,7 @@ public:
 	void generate_maze(int h, int w);
 	void reset_maze(int h, int w);
 	bool inRange(int i, int j);
+	void solve_pila(int f1, int c1, int f2, int c2);
+	void solve_cola(int f1, int c1, int f2, int c2);
 	void print();
 };

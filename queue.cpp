@@ -12,7 +12,7 @@ Queue::Queue():head(nullptr), tail(nullptr) {
 
 }
 
-void Queue::push(char val){
+void Queue::push(position val){
 	Node* node = new Node(val);
 	push(node);
 }

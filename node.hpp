@@ -5,17 +5,32 @@
 
 #pragma once
 
+class position
+{
+private:
+	int x;
+	int y;
+public:
+	position();
+	position(int x, int y);
+	int getX();
+	int getY();
+};
+
 class Node {
 private:
-	char data;
+	position data;
 	Node* ptrNext;
 public:
 	Node();
-	Node(char _data, Node* next = nullptr);
-	void setData(char _data);
+	Node(position _data, Node* next = nullptr);
+	void setData(position _data);
 	void setNext(Node* _next);
-	char getData();
+	position getData();
 	Node* getNext();
 	void print();
 	virtual ~Node();
-}; 
+};
+
+
+

@@ -131,3 +131,8 @@ void Maze::print(){
 	std::cout << " ";
 	std::cout << std::endl;
 }
+
+void Maze::solve_pila(int f1, int c1, int f2, int c2) {
+	Stack pila;
+	position p(f1, c1);
+}
