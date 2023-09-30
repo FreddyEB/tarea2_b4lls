@@ -201,10 +201,6 @@ void Maze::solve_cola(int f1, int c1, int f2, int c2) {
 	{
 		pair<int, int> current = pila.front();
 		pila.pop();
-		/*
-		int f = current.first;
-		int c = current.second;
-		*/
 
 		if (current.first == f2 && current.second == c2) {
 			camino.push_back(current);
@@ -229,7 +225,7 @@ void Maze::solve_cola(int f1, int c1, int f2, int c2) {
 
 	for (int j = 0; j < camino.size(); j++)
 	{
-		grid[camino[j].first][camino[j].second] = 3;
+		grid[camino[j].first][camino[j].second] = 2;
 	}
 
 	print();

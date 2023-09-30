@@ -1,19 +1,16 @@
 CC = g++
-CXXFLAGS = -std=c++11 
+FLAGS = -std=c++11 
 
-exe = p
+exe = tarea2
 
 $(exe): main.o maze.o
 	$(CC) main.o maze.o -o $(exe)
 
 main.o: main.cpp maze.hpp
-	$(CC) $(CXXFLAGS) -c -o main.o main.cpp 
+	$(CC) $(FLAGS) -c -o main.o main.cpp 
 
 maze.o: maze.cpp maze.hpp
-	$(CC) $(CXXFLAGS) -c -o maze.o maze.cpp
-
-run: $(exe)
-	./$(exe)
+	$(CC) $(FLAGS) -c -o maze.o maze.cpp
 
 clean:
 	rm *.o
