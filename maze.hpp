@@ -3,8 +3,10 @@
  */
 
 #pragma once
+#include <vector>
 #include <queue>
 #include <stack>
+#include <iostream>
 typedef unsigned char uchar;
 
 class Maze{
@@ -19,6 +21,7 @@ private:
 public:
 	static const unsigned char WALL;
 	static const unsigned char EMPTY;
+	static const unsigned char SOLUTION;
 	static const int NORTH;
 	static const int SOUTH;
 	static const int EAST;
@@ -29,5 +32,6 @@ public:
 	bool inRange(int i, int j);
 	void solve_pila(int f1, int c1, int f2, int c2);
 	void solve_cola(int f1, int c1, int f2, int c2);
+	void dfsPath(std::pair<int,int>, std::pair<int,int>);
 	void print();
 };

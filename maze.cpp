@@ -1,13 +1,13 @@
 #include "maze.hpp"
-#include <queue>
-#include <stack>
+#include <vector>
 #include <cstdlib>
 #include <ctime>
-#include <iostream>
+#include <algorithm>
 using namespace std;
 
 const unsigned char Maze::WALL  = '@';
 const unsigned char Maze::EMPTY = '-';
+const unsigned char Maze::SOLUTION = '!';
 const int Maze::NORTH= 0;
 const int Maze::SOUTH= 1;
 const int Maze::EAST= 2;
@@ -118,8 +118,10 @@ void Maze::print(){
 			if (grid[i][j] == 0) {
 				cout << EMPTY;
 			}
-			else {
+			else if (grid[i][j] == 1){
 				cout << WALL;
+			} else {
+				cout << SOLUTION;
 			}
 		}
 		cout << "|";
@@ -134,57 +136,101 @@ void Maze::print(){
 }
 
 void Maze::solve_pila(int f1, int c1, int f2, int c2) {
-    vector<pair<int, int>> path;
-    path.push_back({f1, c1});
+	if (!inRange(f1, c1) || (grid[f1][c1] == 1) || !inRange(f2, c2) || (grid[f2][c2])) {
+		cout << "Coordenadas inválidas" << endl;
+		exit(1);
+	}
 
-    visit(f1, c1, path);
-    for (const auto& point : path) {
-        cout << "(" << point.first << ", " << point.second << ") " << endl;
-    }
-    cout << endl;
+	vector <vector<bool>> visited(height, vector<bool>(width, false));
+	std::stack <pair<int, int>> pila;
+
+	pila.push({f1, c1});
+	vector<pair<int,int>>camino;
+
+	while (!pila.empty())
+	{
+		pair<int, int> current = pila.top();
+		pila.pop();
+		/*
+		int f = current.first;
+		int c = current.second;
+		*/
+
+		if (current.first == f2 && current.second == c2) {
+			camino.push_back(current);
+			break;
+		}
+
+		visited[current.first][current.second] = true;
+
+		int movimientos[4][2] = {{-1, 0}, {1, 0}, {0,-1}, {0, 1}};
+
+		for (int i = 0; i < 4; i++)
+		{
+			int nuevaF = current.first + movimientos[i][0];
+			int nuevaC = current.second + movimientos[i][1];
+
+			if (nuevaF >= 0 && nuevaF < height && nuevaC >= 0 && nuevaC < width && grid[nuevaF][nuevaC] == 0 && !visited[nuevaF][nuevaC]) {
+                pila.push(make_pair(nuevaF, nuevaC));
+                camino.push_back(make_pair(nuevaF, nuevaC));
+            }	
+		}
+	}
+
+	for (int j = 0; j < camino.size(); j++)
+	{
+		grid[camino[j].first][camino[j].second] = 3;
+	}
+
+	print();
 }
 
 void Maze::solve_cola(int f1, int c1, int f2, int c2) {
-    queue<pair<int, int>> cola;
-    cola.push({f1, c1});
+	if (!inRange(f1, c1) || (grid[f1][c1] == 1) || !inRange(f2, c2) || (grid[f2][c2])) {
+		cout << "Coordenadas inválidas" << endl;
+		exit(1);
+	}
 
-    while (!cola.empty()) {
-        int i = cola.front().first;
-        int j = cola.front().second;
+	vector <vector<bool>> visited(height, vector<bool>(width, false));
+	std::queue <pair<int, int>> pila;
 
-        if (i == f2 && j == c2) {
-            cout << "Salida del laberinto: (" << i << ", " << j << ")" << endl;
-            break;
-        }
+	pila.push({f1, c1});
+	vector<pair<int,int>>camino;
 
-        cola.pop();
+	while (!pila.empty())
+	{
+		pair<int, int> current = pila.front();
+		pila.pop();
+		/*
+		int f = current.first;
+		int c = current.second;
+		*/
 
-        shuffle_dir();
-
-        for (int k = 0; k < 4; k++) {
-            int dy = 0, dx = 0;
-
-            if (dir[k] == NORTH) {
-                dy = -1;
-            } else if (dir[k] == SOUTH) {
-                dy = 1;
-            } else if (dir[k] == EAST) {
-                dx = 1;
-            } else if (dir[k] == WEST) {
-                dx = -1;
-            }
-
-            int i_next = i + dy;
-            int j_next = j + dx;
-
-            if (inRange(i_next, j_next) && grid[i_next][j_next] == 0) {
-                // Verifica si la celda no es un muro antes de agregarla a la cola
-                cola.push({i_next, j_next});
-                // Marca la celda como visitada
-                grid[i_next][j_next] = 1;
-            }else{
-				cout << "no tiene solución de colas o bfs" << endl; 
-			}
+		if (current.first == f2 && current.second == c2) {
+			camino.push_back(current);
+			break;
 		}
-    }
+
+		visited[current.first][current.second] = true;
+
+		int movimientos[4][2] = {{-1, 0}, {1, 0}, {0,-1}, {0, 1}};
+
+		for (int i = 0; i < 4; i++)
+		{
+			int nuevaF = current.first + movimientos[i][0];
+			int nuevaC = current.second + movimientos[i][1];
+
+			if (nuevaF >= 0 && nuevaF < height && nuevaC >= 0 && nuevaC < width && grid[nuevaF][nuevaC] == 0 && !visited[nuevaF][nuevaC]) {
+                pila.push(make_pair(nuevaF, nuevaC));
+                camino.push_back(make_pair(nuevaF, nuevaC));
+            }	
+		}
+	}
+
+	for (int j = 0; j < camino.size(); j++)
+	{
+		grid[camino[j].first][camino[j].second] = 3;
+	}
+
+	print();
 }
