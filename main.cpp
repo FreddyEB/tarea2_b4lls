@@ -23,9 +23,9 @@ int main(int argc, char **argv)
     laber.print();
 
     if (*argv[7] == 'p') {
-        laber.solve_pila(x1, y1, x2, x2);
+        laber.solve_pila(x1, y1, x2, y2);
 
-    } else if (*argv[7],'c') {
+    } else if (*argv[7] == 'c') {
         laber.solve_cola(x1, y1, x2, y2);
     }
 
