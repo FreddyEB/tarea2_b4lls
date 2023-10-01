@@ -142,19 +142,15 @@ void Maze::solve_pila(int f1, int c1, int f2, int c2) {
 	}
 
 	vector <vector<bool>> visited(height, vector<bool>(width, false));
-	std::stack <pair<int, int>> pila;
+	Stack pila;
 
 	pila.push({f1, c1});
 	vector<pair<int,int>>camino;
 
-	while (!pila.empty())
+	while (!pila.isEmpty())
 	{
-		pair<int, int> current = pila.top();
+		pair<int, int> current = pila.top()->getData();
 		pila.pop();
-		/*
-		int f = current.first;
-		int c = current.second;
-		*/
 
 		if (current.first == f2 && current.second == c2) {
 			camino.push_back(current);
@@ -183,6 +179,12 @@ void Maze::solve_pila(int f1, int c1, int f2, int c2) {
 	}
 
 	print();
+
+	for (int i = 0; i < camino.size(); i++)
+	{
+		std::cout << "(" << camino[i].first << "," << camino[i].second << ")" << endl;
+	}
+	
 }
 
 void Maze::solve_cola(int f1, int c1, int f2, int c2) {
@@ -192,14 +194,13 @@ void Maze::solve_cola(int f1, int c1, int f2, int c2) {
 	}
 
 	vector <vector<bool>> visited(height, vector<bool>(width, false));
-	std::queue <pair<int, int>> pila;
+	Queue pila;
 
 	pila.push({f1, c1});
 	vector<pair<int,int>>camino;
-
-	while (!pila.empty())
+	while (!pila.isEmpty())
 	{
-		pair<int, int> current = pila.front();
+		pair<int, int> current = pila.top()->getData();
 		pila.pop();
 
 		if (current.first == f2 && current.second == c2) {
@@ -229,4 +230,9 @@ void Maze::solve_cola(int f1, int c1, int f2, int c2) {
 	}
 
 	print();
+
+	for (int i = 0; i < camino.size(); i++)
+	{
+		std::cout << "(" << camino[i].first << "," << camino[i].second << ")" << endl;
+	}
 }

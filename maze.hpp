@@ -4,8 +4,8 @@
 
 #pragma once
 #include <vector>
-#include <queue>
-#include <stack>
+#include "queue.hpp" 
+#include "stack.hpp"
 #include <iostream>
 typedef unsigned char uchar;
 
@@ -32,6 +32,5 @@ public:
 	bool inRange(int i, int j);
 	void solve_pila(int f1, int c1, int f2, int c2);
 	void solve_cola(int f1, int c1, int f2, int c2);
-	void dfsPath(std::pair<int,int>, std::pair<int,int>);
 	void print();
 };

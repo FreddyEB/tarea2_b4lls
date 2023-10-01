@@ -22,10 +22,10 @@ int main(int argc, char **argv)
     Maze laber(alto, ancho); 
     laber.print();
 
-    if (strcmp(argv[7],"pila")) {
+    if (*argv[7] == 'p') {
         laber.solve_pila(x1, y1, x2, x2);
 
-    } else if (strcmp(argv[7],"cola")) {
+    } else if (*argv[7],'c') {
         laber.solve_cola(x1, y1, x2, y2);
     }
 
